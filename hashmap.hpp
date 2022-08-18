@@ -4,6 +4,7 @@
 #define HASH_MAP_H
 
 #include <typeinfo>
+#include <string>
 
 namespace Tools 
 {

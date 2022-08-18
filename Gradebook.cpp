@@ -2,7 +2,6 @@
 //
 
 #include <iostream>
-#include <string>
 #include "hashmap.hpp"
 
 int main(int argc, char** argv)
