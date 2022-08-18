@@ -17,7 +17,7 @@ namespace Tools
 	template<typename D> 
 	class LinkedList
 	{
-	private:
+	protected:
 		size_t list_size;
 	public:
 		LinkedList() {}
@@ -26,7 +26,7 @@ namespace Tools
 		Node<D>* tail;
 		inline size_t get_size();
 		inline void push(D);
-		void pop();
+		D pop();
 		virtual void remove(D) = 0;
 	};
 }
@@ -38,11 +38,11 @@ Tools::LinkedList<D>::~LinkedList()
 	{
 		Node<D>* traverse = head;
 		Node<D>* traverse_ahead = head->next;
-		while (traverse != NULL)
+		while (traverse != nullptr)
 		{
 			delete traverse;
 			traverse = traverse_ahead;
-			if (traverse_ahead != NULL)
+			if (traverse_ahead != nullptr)
 			{
 				traverse_ahead = traverse_ahead->next;
 			}
@@ -57,13 +57,13 @@ template<typename D>
 inline void Tools::LinkedList<D>::push(D item)
 {
 	Tools::Node<D>* new_node = new Tools::Node<D>(item);
-	if (head == NULL)
+	if (head == nullptr)
 	{
 		head = new_node;
 	}
 	else
 	{
-		if (head->next == NULL)
+		if (head->next == nullptr)
 		{
 			head->next = new_node;
 		}
@@ -78,26 +78,32 @@ inline void Tools::LinkedList<D>::push(D item)
 }
 
 template<typename D> 
-void Tools::LinkedList<D>::pop()
+D Tools::LinkedList<D>::pop()
 {
 	Tools::Node<D>* traverse = head;
-	Tools::Node<D>* prev = NULL;
+	Tools::Node<D>* prev = nullptr;
+	D val;
 
-	while (traverse->next != NULL)
+	while (traverse->next != nullptr)
 	{
 		prev = traverse;
 		traverse = traverse->next;
 	}
+	if (traverse != nullptr) 
+	{
+		val = traverse->data;
+	}
 	delete traverse;
-	if (prev != NULL)
+	if (prev != nullptr)
 	{
 		tail = prev;
 	}
 	else
 	{
-		tail = NULL;
+		tail = nullptr;
 	}
 	list_size--;
+	return val;
 }
 
 #endif

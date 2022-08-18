@@ -18,12 +18,18 @@
     <ClCompile Include="Gradebook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StudentLinkedList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="linkedlist.hpp">
+    <ClInclude Include="LinkedList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hashmap.hpp">
+    <ClInclude Include="HashMap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StudentLinkedList.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,8 @@
 //
 
 #include <iostream>
-#include "hashmap.hpp"
+#include "HashMap.hpp"
+#include "StudentLinkedList.hpp"
 
 int main(int argc, char** argv)
 {
@@ -18,4 +19,9 @@ int main(int argc, char** argv)
     std::cout << "Now I deleted a node, if we're here then we should be fine?\n";
 
     delete test;
+
+
+    std::cout << "\nNow I'm going to test out my Linked List\n";
+
+    
 }

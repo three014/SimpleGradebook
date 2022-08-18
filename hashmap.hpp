@@ -76,7 +76,7 @@ inline int Tools::HashMap<K, V>::hash_code(K key)
 	{
 		x *= -1;
 	}
-	int hash = x % 20;
+	int hash = x % capacity;
 
 	return hash;
 }
@@ -98,14 +98,17 @@ void Tools::HashMap<K, V>::insert_node(K key, V value)
 			hash_index %= capacity;
 		}
 
-		if (arr[hash_index] == nullptr || ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) == 0)
+		if (arr[hash_index] == nullptr 
+				|| ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) == 0)
 		{
 			size++;
 		}
 	}
 	else
 	{
-		while (arr[hash_index] != NULL && arr[hash_index]->key != key && arr[hash_index]->key != dummy->key)
+		while (arr[hash_index] != NULL 
+				&& arr[hash_index]->key != key 
+				&& arr[hash_index]->key != dummy->key)
 		{
 			hash_index++;
 			hash_index %= capacity;
@@ -129,7 +132,8 @@ V Tools::HashMap<K, V>::delete_node(K key)
 
 	while (arr[hash_index] != nullptr)
 	{
-		if (typeid(key) == typeid("string") && ((std::string)arr[hash_index]->key).compare((std::string)key) == 0)
+		if (typeid(key) == typeid("string") 
+				&& ((std::string) arr[hash_index]->key).compare((std::string) key) == 0)
 		{
 			key_matches = true;
 		}
@@ -150,7 +154,6 @@ V Tools::HashMap<K, V>::delete_node(K key)
 			return val;
 		}
 	}
-
 	
 	return nullptr;
 }
@@ -173,7 +176,8 @@ V Tools::HashMap<K, V>::get(K key)
 		{
 			counter++;
 		}
-		if (typeid(key) == typeid("string") && ((std::string)arr[hash_index]->key).compare((std::string)key) == 0)
+		if (typeid(key) == typeid("string") 
+				&& ((std::string) arr[hash_index]->key).compare((std::string) key) == 0)
 		{
 			key_matches = true;
 		}

@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Gradebook.cpp" />
+    <ClCompile Include="StudentLinkedList.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="linkedlist.hpp" />
-    <ClInclude Include="hashmap.hpp" />
+    <ClInclude Include="LinkedList.hpp" />
+    <ClInclude Include="HashMap.hpp" />
+    <ClInclude Include="StudentLinkedList.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
