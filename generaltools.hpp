@@ -6,7 +6,6 @@
 namespace Tools
 {
 	template<typename D> 
-
 	class Node
 	{
 	public:
@@ -17,7 +16,6 @@ namespace Tools
 
 
 	template<typename D> 
-
 	class LinkedList
 	{
 	private:
@@ -35,7 +33,6 @@ namespace Tools
 
 
 	template<typename K, typename V>
-
 	class HashNode
 	{
 	public:
@@ -47,7 +44,6 @@ namespace Tools
 
 
 	template<typename K, typename V>
-
 	class HashMap
 	{
 		HashNode<K, V>** arr;
@@ -65,7 +61,8 @@ namespace Tools
 	};
 }
 
-template<typename D> Tools::LinkedList<D>::~LinkedList()
+template<typename D> 
+Tools::LinkedList<D>::~LinkedList()
 {
 	if (head != NULL)
 	{
@@ -83,9 +80,11 @@ template<typename D> Tools::LinkedList<D>::~LinkedList()
 	}
 }
 
-template<typename D> inline size_t Tools::LinkedList<D>::get_size() { return list_size; }
+template<typename D> 
+inline size_t Tools::LinkedList<D>::get_size() { return list_size; }
 
-template<typename D> inline void Tools::LinkedList<D>::push(D item)
+template<typename D> 
+inline void Tools::LinkedList<D>::push(D item)
 {
 	Tools::Node<D>* new_node = new Tools::Node<D>(item);
 	if (head == NULL)
@@ -108,7 +107,8 @@ template<typename D> inline void Tools::LinkedList<D>::push(D item)
 	list_size++;
 }
 
-template<typename D> void Tools::LinkedList<D>::pop()
+template<typename D> 
+void Tools::LinkedList<D>::pop()
 {
 	Tools::Node<D>* traverse = head;
 	Tools::Node<D>* prev = NULL;
@@ -128,6 +128,59 @@ template<typename D> void Tools::LinkedList<D>::pop()
 		tail = NULL;
 	}
 	list_size--;
+}
+
+template<typename K, typename V>
+inline Tools::HashNode<K, V>::HashNode(K key, V value)
+{
+	this->value = value;
+	this->key = key;
+}
+
+template<typename K, typename V>
+inline Tools::HashMap<K, V>::HashMap()
+{
+	capacity = 20;
+	size = 0;
+	arr = new HashNode<K, V>*[capacity];
+
+	for (int i = 0; i < capacity; i++)
+	{
+		arr[i] = NULL;
+	}
+}
+
+template<typename K, typename V>
+inline int Tools::HashMap<K, V>::hash_code(K key)
+{
+	long x = * ( long * ) &key; // probably not a great idea; took it from Fast Inv. Sqrt. (Quake III)
+	
+	if (x < 0)
+	{
+		x *= -1;
+	}
+	int hash = x % 20;
+
+	return hash;
+}
+
+template<typename K, typename V>
+void Tools::HashMap<K, V>::insert_node(K key, V value)
+{
+	HashNode<K, V>* temp = new HashNode<K, V>(key, value);
+
+	int hash_index = hash_code(key);
+	while (arr[hash_index] != NULL && arr[hash_index]->key != key)
+	{
+		hash_index++;
+		hash_index %= capacity;
+	}
+
+	if (arr[hash_index] == NULL)
+	{
+		size++;
+	}
+	arr[hash_index] = temp;
 }
 
 
