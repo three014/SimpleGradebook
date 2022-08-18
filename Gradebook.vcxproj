@@ -130,7 +130,8 @@
     <ClCompile Include="Gradebook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="generaltools.hpp" />
+    <ClInclude Include="linkedlist.hpp" />
+    <ClInclude Include="hashmap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

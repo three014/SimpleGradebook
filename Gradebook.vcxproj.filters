@@ -20,7 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="generaltools.hpp">
+    <ClInclude Include="linkedlist.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hashmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

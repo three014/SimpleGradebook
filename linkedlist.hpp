@@ -1,7 +1,7 @@
-#ifndef GENERAL_TOOLS_H
-#define GENERAL_TOOLS_H
+#pragma once
 
-#include <vector>
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 namespace Tools
 {
@@ -13,7 +13,6 @@ namespace Tools
 		D data;
 		Node<D>* next;
 	};
-
 
 	template<typename D> 
 	class LinkedList
@@ -29,35 +28,6 @@ namespace Tools
 		inline void push(D);
 		void pop();
 		virtual void remove(D) = 0;
-	};
-
-
-	template<typename K, typename V>
-	class HashNode
-	{
-	public:
-		V value;
-		K key;
-
-		HashNode(K, V);
-	};
-
-
-	template<typename K, typename V>
-	class HashMap
-	{
-		HashNode<K, V>** arr;
-		int capacity;
-		int size;
-
-	public:
-		HashMap();
-		int hash_code(K);
-		void insert_node(K, V);
-		V delete_node(int);
-		V get(int);
-		int size_of_map();
-		bool is_empty();
 	};
 }
 
@@ -129,59 +99,5 @@ void Tools::LinkedList<D>::pop()
 	}
 	list_size--;
 }
-
-template<typename K, typename V>
-inline Tools::HashNode<K, V>::HashNode(K key, V value)
-{
-	this->value = value;
-	this->key = key;
-}
-
-template<typename K, typename V>
-inline Tools::HashMap<K, V>::HashMap()
-{
-	capacity = 20;
-	size = 0;
-	arr = new HashNode<K, V>*[capacity];
-
-	for (int i = 0; i < capacity; i++)
-	{
-		arr[i] = NULL;
-	}
-}
-
-template<typename K, typename V>
-inline int Tools::HashMap<K, V>::hash_code(K key)
-{
-	long x = * ( long * ) &key; // probably not a great idea; took it from Fast Inv. Sqrt. (Quake III)
-	
-	if (x < 0)
-	{
-		x *= -1;
-	}
-	int hash = x % 20;
-
-	return hash;
-}
-
-template<typename K, typename V>
-void Tools::HashMap<K, V>::insert_node(K key, V value)
-{
-	HashNode<K, V>* temp = new HashNode<K, V>(key, value);
-
-	int hash_index = hash_code(key);
-	while (arr[hash_index] != NULL && arr[hash_index]->key != key)
-	{
-		hash_index++;
-		hash_index %= capacity;
-	}
-
-	if (arr[hash_index] == NULL)
-	{
-		size++;
-	}
-	arr[hash_index] = temp;
-}
-
 
 #endif
