@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     test->insert_node("English", "Good");
     std::cout << "Just added a node to this hashmap and nothing has broken yet :D\n";
 
-    test->delete_node("English");
+    std::cout << test->delete_node("English") << "\n";
     std::cout << "Now I deleted a node, if we're here then we should be fine?\n";
 
     delete test;

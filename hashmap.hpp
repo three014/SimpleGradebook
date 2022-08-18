@@ -54,7 +54,7 @@ inline Tools::HashMap<K, V>::HashMap(K dummyK, V dummyV)
 
 	for (int i = 0; i < capacity; i++)
 	{
-		arr[i] = NULL;
+		arr[i] = nullptr;
 	}
 
 	dummy = new HashNode<K, V>(dummyK, dummyV);
@@ -89,7 +89,7 @@ void Tools::HashMap<K, V>::insert_node(K key, V value)
 
 	if (typeid(key) == typeid("string")) // if the key type is a string, compare strings with string methods
 	{
-		while (arr[hash_index] != NULL 
+		while (arr[hash_index] != nullptr 
 				&& ((std::string) arr[hash_index]->key).compare((std::string) key) != 0 
 				&& ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) != 0)
 		{
@@ -97,7 +97,7 @@ void Tools::HashMap<K, V>::insert_node(K key, V value)
 			hash_index %= capacity;
 		}
 
-		if (arr[hash_index] == NULL || ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) == 0)
+		if (arr[hash_index] == nullptr || ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) == 0)
 		{
 			size++;
 		}
@@ -110,7 +110,7 @@ void Tools::HashMap<K, V>::insert_node(K key, V value)
 			hash_index %= capacity;
 		}
 
-		if (arr[hash_index] == NULL || arr[hash_index]->key == dummy->key)
+		if (arr[hash_index] == nullptr || arr[hash_index]->key == dummy->key)
 		{
 			size++;
 		}
@@ -126,7 +126,7 @@ V Tools::HashMap<K, V>::delete_node(K key)
 
 	bool key_matches = false;
 
-	while (arr[hash_index] != NULL)
+	while (arr[hash_index] != nullptr)
 	{
 		if (typeid(key) == typeid("string") && ((std::string)arr[hash_index]->key).compare((std::string)key) == 0)
 		{
@@ -151,7 +151,7 @@ V Tools::HashMap<K, V>::delete_node(K key)
 	}
 
 	
-	return NULL;
+	return nullptr;
 }
 
 template<typename K, typename V>
@@ -162,7 +162,7 @@ V Tools::HashMap<K, V>::get(K key)
 
 	bool key_matches = false;
 
-	while (arr[hash_index] != NULL)
+	while (arr[hash_index] != nullptr)
 	{
 		if (counter > capacity)
 		{
@@ -189,7 +189,7 @@ V Tools::HashMap<K, V>::get(K key)
 		hash_index %= capacity;
 	}
 	
-	return NULL;
+	return nullptr;
 }
 
 template<typename K, typename V>
