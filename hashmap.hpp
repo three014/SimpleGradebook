@@ -3,8 +3,6 @@
 #ifndef HASH_MAP_H
 #define HASH_MAP_H
 
-#include <typeinfo>
-#include <string>
 #include <functional>
 
 namespace Tools 
