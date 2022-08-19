@@ -10,10 +10,12 @@ int main(int argc, char** argv)
     std::cout << "Hello World!\n";
 
     // based on a guide I read, they used a dummy node, but I wonder if I don't need that??
-    Tools::HashMap<std::string, std::string>* test = new Tools::HashMap<std::string, std::string>("-1", "-1");
+    Tools::HashMap<std::string, int>* test = new Tools::HashMap<std::string, int>("", -1);
 
-    test->insert_node("English", "Good");
+    test->insert_node("English", 2);
     std::cout << "Just added a node to this hashmap and nothing has broken yet :D\n";
+    std::cout << "Node value: " << test->get_value("English") << "\n";
+    std::cout << test->get_value("Math") << "\n\n";
 
     std::cout << test->delete_node("English") << "\n";
     std::cout << "Now I deleted a node, if we're here then we should be fine?\n";

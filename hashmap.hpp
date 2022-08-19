@@ -5,6 +5,7 @@
 
 #include <typeinfo>
 #include <string>
+#include <functional>
 
 namespace Tools 
 {
@@ -24,6 +25,7 @@ namespace Tools
 		HashNode<K, V>** arr;
 		int capacity;
 		int size;
+		std::hash<K> hash_key;
 
 		HashNode<K, V>* dummy;
 
@@ -31,9 +33,9 @@ namespace Tools
 		HashMap(K, V);
 		~HashMap();
 		int hash_code(K);
-		void insert_node(K, V);
+		bool insert_node(K, V);
 		V delete_node(K);
-		V get(K);
+		V get_value(K);
 		int size_of_map();
 		bool is_empty();
 	};
@@ -47,7 +49,7 @@ inline Tools::HashNode<K, V>::HashNode(K key, V value)
 }
 
 template<typename K, typename V>
-inline Tools::HashMap<K, V>::HashMap(K dummyK, V dummyV)
+inline Tools::HashMap<K, V>::HashMap(K dummy_key, V dummy_value)
 {
 	capacity = 20;
 	size = 0;
@@ -58,143 +60,111 @@ inline Tools::HashMap<K, V>::HashMap(K dummyK, V dummyV)
 		arr[i] = nullptr;
 	}
 
-	dummy = new HashNode<K, V>(dummyK, dummyV);
+	dummy = new HashNode<K, V>(dummy_key, dummy_value);
 }
 
 template<typename K, typename V>
 Tools::HashMap<K, V>::~HashMap()
 {
 	delete[] arr;
+	delete dummy;
 }
 
 template<typename K, typename V>
 inline int Tools::HashMap<K, V>::hash_code(K key)
 {
-	long x = *(long*)&key; // probably not a great idea; took it from Fast Inv. Sqrt. (Quake III)
-
-	if (x < 0)
-	{
-		x *= -1;
-	}
-	int hash = x % capacity;
+	
+	int hash = hash_key(key) % capacity;
 
 	return hash;
 }
 
 template<typename K, typename V>
-void Tools::HashMap<K, V>::insert_node(K key, V value)
+bool Tools::HashMap<K, V>::insert_node(K key, V value)
 {
 	HashNode<K, V>* temp = new HashNode<K, V>(key, value);
 
 	int hash_index = hash_code(key);
 
-	if (typeid(key) == typeid("string")) // if the key type is a string, compare strings with string methods
+	for (int i = 0; i < capacity; i++)
 	{
-		while (arr[hash_index] != nullptr 
-				&& ((std::string) arr[hash_index]->key).compare((std::string) key) != 0 
-				&& ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) != 0)
-		{
-			hash_index++;
-			hash_index %= capacity;
-		}
-
-		if (arr[hash_index] == nullptr 
-				|| ((std::string) arr[hash_index]->key).compare((std::string) dummy->key) == 0)
+		if (arr[hash_index] == nullptr || arr[hash_index] == dummy)
 		{
 			size++;
-		}
-	}
-	else
-	{
-		while (arr[hash_index] != NULL 
-				&& arr[hash_index]->key != key 
-				&& arr[hash_index]->key != dummy->key)
-		{
-			hash_index++;
-			hash_index %= capacity;
+			arr[hash_index] = temp;
+			return true;
 		}
 
-		if (arr[hash_index] == nullptr || arr[hash_index]->key == dummy->key)
-		{
-			size++;
-		}
+		hash_index++;
+		hash_index %= capacity;
 	}
 	
-	arr[hash_index] = temp;
+	return false;
 }
 
 template<typename K, typename V>
 V Tools::HashMap<K, V>::delete_node(K key)
 {
 	int hash_index = hash_code(key);
+	size_t hash_value = hash_key(key);
+	size_t hash_arr_key;
 
-	bool key_matches = false;
-
-	while (arr[hash_index] != nullptr)
+	for (int i = 0; i < capacity; i++)
 	{
-		if (typeid(key) == typeid("string") 
-				&& ((std::string) arr[hash_index]->key).compare((std::string) key) == 0)
+		if (arr[hash_index] == nullptr || arr[hash_index] == dummy)
 		{
-			key_matches = true;
+			hash_index++;
+			hash_index %= capacity;
+			continue;
 		}
-		else if (typeid(key) != typeid("string") && arr[hash_index]->key == key)
-		{
-			key_matches = true;
-		}
-		
-		if (key_matches)
+
+		hash_arr_key = hash_key(arr[hash_index]->key);
+		if (hash_arr_key == hash_value)
 		{
 			HashNode<K, V>* temp = arr[hash_index];
-
 			arr[hash_index] = dummy;
 
 			size--;
+
 			V val = temp->value;
 			delete temp;
 			return val;
 		}
-	}
-	
-	return nullptr;
-}
 
-template<typename K, typename V>
-V Tools::HashMap<K, V>::get(K key)
-{
-	int hash_index = hash_code(key);
-	int counter = 0;
-
-	bool key_matches = false;
-
-	while (arr[hash_index] != nullptr)
-	{
-		if (counter > capacity)
-		{
-			return NULL;
-		}
-		else
-		{
-			counter++;
-		}
-		if (typeid(key) == typeid("string") 
-				&& ((std::string) arr[hash_index]->key).compare((std::string) key) == 0)
-		{
-			key_matches = true;
-		}
-		else if (typeid(key) != typeid("string") && arr[hash_index]->key == key)
-		{
-			key_matches = true;
-		}
-
-		if (key_matches)
-		{
-			return arr[hash_index]->value;
-		}
 		hash_index++;
 		hash_index %= capacity;
 	}
 	
-	return nullptr;
+	return dummy->value;
+}
+
+template<typename K, typename V>
+V Tools::HashMap<K, V>::get_value(K key)
+{
+	int hash_index = hash_code(key);
+	size_t hash_value = hash_key(key);
+	size_t hash_arr_key;
+
+	for (int i = 0; i < capacity; i++)
+	{
+		if (arr[hash_index] == nullptr || arr[hash_index] == dummy)
+		{
+			hash_index++;
+			hash_index %= capacity;
+			continue;
+		}
+
+		hash_arr_key = hash_key(arr[hash_index]->key);
+		if (hash_arr_key == hash_value)
+		{
+			return arr[hash_index]->value;
+		}
+
+		hash_index++;
+		hash_index %= capacity;
+	}
+	
+	return dummy->value;
 }
 
 template<typename K, typename V>

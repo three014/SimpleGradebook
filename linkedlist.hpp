@@ -20,7 +20,7 @@ namespace Tools
 	protected:
 		size_t list_size;
 	public:
-		LinkedList() {}
+		LinkedList();
 		~LinkedList();
 		Node<D>* head;
 		Node<D>* tail;
@@ -31,7 +31,15 @@ namespace Tools
 	};
 }
 
-template<typename D> 
+template<typename D>
+inline Tools::LinkedList<D>::LinkedList()
+{
+	list_size = 0;
+	head = nullptr;
+	tail = nullptr;
+}
+
+template<typename D>
 Tools::LinkedList<D>::~LinkedList()
 {
 	if (head != NULL)
