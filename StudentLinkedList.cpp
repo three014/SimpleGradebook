@@ -16,27 +16,6 @@ void Gradebook::StudentLinkedList::remove(double item)
     // FIXME: remove node at any place while keeping the tail pointing to the last node
     if (std::abs(traverse->data - item) < EPSILON)
     {
-        head = traverse->next;
-        delete traverse;
-    }
-    else
-    {
-        while (traverse != nullptr)
-        {
-            if (std::abs(traverse->data - item) < EPSILON)
-            {
-                prev->next = traverse->next;
-                delete traverse;
-                break;
-            }
-
-            prev = traverse;
-            traverse = traverse->next;
-        }
-
-        if (prev->next == nullptr)
-        {
-            tail = prev;
-        }
+        
     }
 }
