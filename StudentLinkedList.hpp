@@ -10,6 +10,8 @@ namespace Gradebook
     class StudentLinkedList :
         public Tools::LinkedList<double>
     {
+    protected:
+        double const EPSILON = 0.00001;
     public:
         StudentLinkedList() : LinkedList() {}
         void remove(double);
