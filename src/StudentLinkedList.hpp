@@ -14,6 +14,7 @@ namespace Gradebook
         double const EPSILON = 0.00001;
     public:
         StudentLinkedList() : LinkedList() {}
+        virtual ~StudentLinkedList() {}
         void remove(double);
     };
 }

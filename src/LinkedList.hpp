@@ -21,7 +21,7 @@ namespace Tools
 		size_t list_size;
 	public:
 		LinkedList();
-		~LinkedList();
+		virtual ~LinkedList();
 		Node<D>* head;
 		Node<D>* tail;
 		inline size_t get_size();
@@ -42,7 +42,7 @@ inline Tools::LinkedList<D>::LinkedList()
 template<typename D>
 Tools::LinkedList<D>::~LinkedList()
 {
-	if (head != NULL)
+	if (head != nullptr)
 	{
 		Node<D>* traverse = head;
 		Node<D>* traverse_ahead = head->next;

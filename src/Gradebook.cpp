@@ -24,6 +24,13 @@ int main(int argc, char** argv)
 
 
     std::cout << "\nNow I'm going to test out my Linked List\n";
+    
+    Gradebook::StudentLinkedList dummy;
+    Gradebook::StudentLinkedList* test_grades = new Gradebook::StudentLinkedList();
+    test_grades->push(94.8);
 
+    Tools::HashMap<std::string, Gradebook::StudentLinkedList*>* student_gradebook = new Tools::HashMap<std::string, Gradebook::StudentLinkedList*>("", &dummy);
+    student_gradebook->insert_node("English", test_grades);
+    delete student_gradebook;
     
 }
