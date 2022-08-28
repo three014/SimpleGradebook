@@ -3,6 +3,8 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <iostream>
+
 namespace Tools
 {
 	template<typename D> 

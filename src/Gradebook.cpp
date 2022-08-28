@@ -14,7 +14,8 @@ int main(int argc, char** argv)
     std::cout << "Hello World!\n\n";
 
     /* First Test: Creating a hashmap with the correct dummy input */
-    Tools::HashMap<std::string, int>* test = new Tools::HashMap<std::string, int>(dummy_str, dummy_int);
+    Tools::HashMap<std::string, int>* test = 
+            new Tools::HashMap<std::string, int>(dummy_str, dummy_int);
 
     test->insert_node("English", 2);
     std::cout << "Added Node \"English\" with value 2" << "\n";
@@ -28,6 +29,8 @@ int main(int argc, char** argv)
     test->insert_node("History of Jazz", 7);
     std::cout << "Added Node \"History of Jazz\" with value 7" << "\n";
     std::cout << "Retrieving node value: " << test->get_value("History of Jazz") << "\n";
+    test->insert_node("Computer Programming I", 1);
+    std::cout << "Added Node \"Computer Programming\" with value 1" << "\n";
 
 
     delete test;
@@ -39,7 +42,8 @@ int main(int argc, char** argv)
     Gradebook::StudentLinkedList* test_grades = new Gradebook::StudentLinkedList();
     test_grades->push(94.8);
 
-    Tools::HashMap<std::string, Gradebook::StudentLinkedList*>* student_gradebook = new Tools::HashMap<std::string, Gradebook::StudentLinkedList*>("", &dummy);
+    Tools::HashMap<std::string, Gradebook::StudentLinkedList*>* student_gradebook = 
+            new Tools::HashMap<std::string, Gradebook::StudentLinkedList*>(dummy_str, &dummy);
     student_gradebook->insert_node("English", test_grades);
     Gradebook::StudentLinkedList* read_grades = student_gradebook->get_value("English");
     std::cout << read_grades->pop() << "\n";
