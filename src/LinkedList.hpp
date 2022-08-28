@@ -101,8 +101,11 @@ D Tools::LinkedList<D>::pop()
 	{
 		val = traverse->data;
 	}
+
 	delete traverse;
-	if (prev != nullptr)
+    traverse = nullptr;
+	
+    if (prev != nullptr)
 	{
 		tail = prev;
 	}

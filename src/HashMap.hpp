@@ -126,6 +126,7 @@ V Tools::HashMap<K, V>::delete_node(K key)
 
 			V val = temp->value;
 			delete temp;
+            arr[hash_index] = nullptr;
 			return val;
 		}
 
